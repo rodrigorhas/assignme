@@ -12,7 +12,7 @@ const computed = {
   // the current status of tasks being show.
   // either new, in_progress or done
   taskStatus () {
-    return this.$store.getters.taskStatus
+    return this.$store.getters['tasks/taskStatus']
   },
 
   // the tasks that should be rendered on the lists
@@ -23,7 +23,7 @@ const computed = {
 
   // if this is called it returns a list of all the tasks
   allTasks () {
-    return this.$store.getters.tasks
+    return this.$store.getters['tasks/tasks']
   },
 
   // returns all the tasks that havent started
@@ -53,20 +53,20 @@ const computed = {
 
 const methods = {
   startTask (task) {
-    this.$store.dispatch('startTask', task)
+    this.$store.dispatch('tasks/startTask', task)
   },
 
   finishTask (task) {
-    this.$store.dispatch('finishTask', task)
+    this.$store.dispatch('tasks/finishTask', task)
   },
 
   editTask (task) {
-    this.$store.commit('setTaskToUpdate', task)
+    this.$store.commit('tasks/setTaskToUpdate', task)
     this.$router.push('/create')
   },
 
   showTasksByStatus (status) {
-    this.$store.commit('setTaskStatus', status)
+    this.$store.commit('tasks/setTaskStatus', status)
   }
 }
 

@@ -64,11 +64,11 @@ export default {
   },
 
   computed: {
-    authUser () { return this.$store.getters.authUser }
+    user () { return this.$store.getters['auth/user'] }
   },
 
   watch: {
-    authUser (value) {
+    user (value) {
       if (value !== null) {
         this.$router.push('/')
       }
@@ -80,9 +80,9 @@ export default {
       const user = this.user
       if (user.password === user.confirmPassword) {
         delete user.confirmPassword
-        this.$store.dispatch('signUp', user)
+        this.$store.dispatch('auth/signUp', user)
       } else {
-        this.$store.commit('showAlert', {
+        this.$store.commit('alert/show', {
           title: 'Please enter matching passwords',
           type: 'warning'
         })

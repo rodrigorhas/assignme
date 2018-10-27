@@ -89,13 +89,23 @@
   export default {
     computed: {
 
-      alert () { return this.$store.getters.alert },
+      alert () {
+        return this.$store.getters['alert/alert']
+      },
+
       isUpdate () {
         const isUpdate = this.taskToUpdate !== null
-        if (isUpdate) { Object.assign(this.task, this.taskToUpdate) }
+
+        if (isUpdate) {
+          Object.assign(this.task, this.taskToUpdate)
+        }
+
         return isUpdate
       },
-      taskToUpdate () { return this.$store.getters.taskToUpdate }
+
+      taskToUpdate () {
+        return this.$store.getters['tasks/taskToUpdate']
+      }
     },
     data () {
       return {
@@ -122,17 +132,18 @@
     methods: {
       createTask () {
         this.task.deadline = this.formatDate()
-        this.$store.dispatch('createTask', this.task)
+        this.$store.dispatch('tasks/createTask', this.task)
         this.task = this.defaultTask
         this.$router.push('/')
       },
 
       updateTask () {
         this.task.deadline = this.formatDate()
-        this.$store.dispatch('updateTask', this.task)
+        this.$store.dispatch('tasks/updateTask', this.task)
         this.task = this.defaultTask
         this.$router.push('/')
       },
+
       formatDate () {
         return moment(this.task.deadline).add(this.task.deadlineTime.split('').splice(0, 2).join(''), 'hours')._d
       }

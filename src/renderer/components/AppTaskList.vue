@@ -19,12 +19,20 @@
       <v-card-title><h3 class="title">{{task.title}}</h3></v-card-title>
       
       <v-card-text v-if="taskToExpand === task.id">
-        <h6 class="subheading"><v-icon>description</v-icon> Description</h6>
+        <h6 class="subheading">
+          <v-icon>description</v-icon>
+          Description
+        </h6>
+
         <p>{{task.description}}</p>
 
-        <h6 class="subheading"><v-icon>show_chart</v-icon> Status</h6>
+        <h6 class="subheading">
+          <v-icon>show_chart</v-icon>
+          Status
+        </h6>
+
         <p>
-          <v-chip  outline :class="{
+          <v-chip outline :class="{
               red: task.status === 'new',
               'red--text':task.status === 'new',
               orange: task.status === 'in_progress',
@@ -34,12 +42,31 @@
             }">
             {{task.status}}
           </v-chip>
-          <span v-if="task.status === 'new'"><v-btn class="orange white--text" @click.native="startTask(task)">Start task</v-btn></span>
-          <span v-if="task.status === 'in_progress'"><v-btn class="green white--text" @click.native="finishTask(task)">Finish task</v-btn></span>
-          <span v-if="task.status === 'done'"><v-btn class="orange white--text" @click.native="startTask(task)">Restart task</v-btn></span>
+
+          <span v-if="task.status === 'new'">
+            <v-btn class="orange white--text"
+              flat @click.native="startTask(task)"
+            >Start task</v-btn>
+          </span>
+
+          <span v-if="task.status === 'in_progress'">
+            <v-btn class="green white--text"
+              flat @click.native="finishTask(task)"
+            >Finish task</v-btn>
+          </span>
+
+          <span v-if="task.status === 'done'">
+            <v-btn class="orange white--text"
+              flat @click.native="startTask(task)"
+            >Restart task</v-btn>
+          </span>
         </p>
 
-        <h6 class="subheading"><v-icon>date_range</v-icon>Task Created</h6>
+        <h6 class="subheading">
+          <v-icon>date_range</v-icon>
+          Task Created
+        </h6>
+
         <p>{{task.created | niceDate }} </p>
       </v-card-text>
 
@@ -47,18 +74,18 @@
         <span class="grey--text"><v-icon>date_range</v-icon><b> Due {{ task.deadline | niceDate }}</b></span>
         <v-spacer></v-spacer>
 
-        <v-btn v-if="taskToExpand !== task.id" class="white--text" @click.native="taskToExpand = task.id" small fab>
+        <v-btn v-if="taskToExpand !== task.id" class="white--text" @click.native="taskToExpand = task.id" flat icon>
           <v-icon class="primary--text">expand_more</v-icon>
         </v-btn>
-        <v-btn v-if="taskToExpand === task.id" class="white--text" @click.native="taskToExpand = ''" small fab>
+        <v-btn v-if="taskToExpand === task.id" class="white--text" @click.native="taskToExpand = ''" flat icon>
           <v-icon class="primary--text">expand_less</v-icon>
         </v-btn>
 
-        <v-btn class="white--text" @click.native="editTask(task)" small fab>
+        <v-btn class="white--text" @click.native="editTask(task)" flat icon>
           <v-icon class="green--text">edit</v-icon>
         </v-btn>
 
-        <v-btn @click.native="taskToDelete = task; showDialog = true;" class=" white--text" small fab>
+        <v-btn @click.native="taskToDelete = task; showDialog = true;" class=" white--text" flat icon>
           <v-icon class="red--text">delete</v-icon>
         </v-btn>
       </v-card-actions>

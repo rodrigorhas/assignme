@@ -12,7 +12,8 @@
             <v-flex xs12>
               <v-text-field
                 label="Username"
-                v-model="user.username"
+                v-model="credentials.username"
+                autocomplete="auto"
                 prepend-icon="person">
               </v-text-field>
             </v-flex>
@@ -20,7 +21,7 @@
             <v-flex xs12>
               <v-text-field
                 label="Password"
-                v-model="user.password"
+                v-model="credentials.password"
                 prepend-icon="lock"
                 type="password"
                 @keyup.native.enter="signIn">
@@ -41,29 +42,38 @@
 
 <script>
 import AppWelcomeCard from '@/components/AppWelcomeCard'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'SignInPage',
+
   mounted () {
-    this.$store.commit('checkForUser')
+    this.$store.commit('auth/checkForUser')
   },
-  components: { AppWelcomeCard },
+
+  components: {
+    AppWelcomeCard
+  },
+
   data () {
     return {
-      user: {
-        username: '',
-        password: ''
+      credentials: {
+        username: 'rodrigorhas',
+        password: 'summer123'
       }
     }
   },
 
   computed: {
-    authUser () { return this.$store.getters.authUser },
-    isThereUser () { return this.$store.getters.isThereUser },
-    checkedForUser () { return this.$store.getters.checkedForUser }
+    ...mapGetters('auth', [
+      'user',
+      'isThereUser',
+      'checkedForUser'
+    ])
   },
 
   watch: {
-    authUser (value) {
+    user (value) {
       if (value !== null) {
         this.$router.push('/')
       }
@@ -72,8 +82,7 @@ export default {
 
   methods: {
     signIn () {
-      const user = this.user
-      this.$store.dispatch('signIn', user)
+      this.$store.dispatch('auth/signIn', this.credentials)
     }
   }
 }

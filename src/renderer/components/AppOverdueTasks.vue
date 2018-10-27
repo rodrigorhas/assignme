@@ -10,7 +10,7 @@
     <v-card class="mb-3 overdue tasks">
       <v-list subheader>
         <v-subheader><v-icon>timelapse</v-icon> Overdue Tasks</v-subheader>
-          <v-list-tile avatar v-for="task in overdueTasks" v-bind:key="task.title">
+          <v-list-tile avatar v-for="task in overdueTasks" :key="task.title">
             <v-list-tile-avatar>
               <v-icon class="red--text">fiber_manual_record</v-icon>
             </v-list-tile-avatar>
@@ -21,7 +21,7 @@
             <v-list-tile-action>
               <v-menu
                 origin="center center"
-                offset-x="10"
+                :offset-x="false"
                 transition="scale-transition"
                 bottom>
 

@@ -5,7 +5,7 @@ import store from '../store'
 Vue.use(Router)
 
 function checkAuth (from, to, next) {
-  if (store.getters.authUser !== null) {
+  if (store.getters['auth/user'] !== null) {
     next()
   } else { next('/signin') }
 }

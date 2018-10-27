@@ -32,7 +32,7 @@
 
       show (value) {
         if (value === false) {
-          this.$store.commit('closeAlert')
+          this.$store.commit('alert/closeAlert')
         }
       }
     },

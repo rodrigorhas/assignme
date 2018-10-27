@@ -23,14 +23,14 @@
       goBack () {
         // whenever you leave the create task window, cleat the taskToEdit
         // so that when a new task is going to be created there will be no problem
-        this.$store.commit('setTaskToUpdate', null)
+        this.$store.commit('tasks/setTaskToUpdate', null)
         this.$router.push('/')
       }
     },
 
     computed: {
-      authUser () {
-        return this.$store.getters.authUser
+      user () {
+        return this.$store.getters['auth/user']
       },
 
       showToolbar () {
@@ -38,7 +38,7 @@
       },
 
       showSignInBtn () {
-        return !this.authUser && this.$route.name !== 'signin-page' && this.$route.name !== 'signup-page'
+        return !this.user && this.$route.name !== 'signin-page' && this.$route.name !== 'signup-page'
       }
     }
   }

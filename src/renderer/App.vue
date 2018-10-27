@@ -1,9 +1,9 @@
 <template>
   <v-app id="app">
     <!-- show alerts using the snackbar -->
-    <app-alert :alert="alert" :showAlert="showAlert" @close="closeAlert"></app-alert>
-    <app-navigation-drawer v-if="authenticated"></app-navigation-drawer>
-    <app-toolbar v-if="authenticated"></app-toolbar>
+    <AppAlert :alert="alert" :showAlert="showAlert" @close="closeAlert"></AppAlert>
+    <AppNavigationDrawer v-if="authenticated"></AppNavigationDrawer>
+    <AppToolbar v-if="authenticated"></AppToolbar>
 
     <!-- The Main content -->
     <main>
@@ -24,6 +24,7 @@
   import AppAlert from '@/components/AppAlert'
   import AppNavigationDrawer from '@/components/AppNavigationDrawer'
   import AppToolbar from '@/components/AppToolbar'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'assignme',
@@ -32,14 +33,13 @@
 
     data () {
       return {
-        showAlert: false,
         version: require('../../package.json').version
       }
     },
 
     methods: {
       closeAlert () {
-        this.$store.commit('closeAlert')
+        this.$store.commit('alert/close')
       },
       open (link) {
         this.$electron.shell.openExternal(link)
@@ -47,11 +47,13 @@
     },
 
     computed: {
-      alert () {
-        this.showAlert = this.$store.getters.alert.show
-        return this.$store.getters.alert
-      },
-      authenticated () { return !!this.$store.getters.authUser === true }
+      ...mapGetters('auth', {
+        authenticated: 'authenticated'
+      }),
+      ...mapGetters('alert', {
+        alert: 'alert',
+        showAlert: 'show'
+      })
     }
   }
 </script>

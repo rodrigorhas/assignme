@@ -67,11 +67,11 @@ export default {
 
   methods: {
     showTasksByStatus (status) {
-      this.$store.commit('setTaskStatus', status)
+      this.$store.commit('tasks/setTaskStatus', status)
       this.$router.push('/')
     },
     signOut () {
-      this.$store.commit('signOut')
+      this.$store.commit('auth/signOut')
       this.$router.push('/signin')
     },
     open (link) {
@@ -81,7 +81,7 @@ export default {
 
   computed: {
     taskStatus () {
-      return this.$store.getters.taskStatus
+      return this.$store.getters['tasks/taskStatus']
     },
     items () {
       return [
@@ -123,7 +123,7 @@ export default {
       ]
     },
     allTasks () {
-      return this.$store.getters.tasks
+      return this.$store.getters['tasks/tasks']
     },
     idleTasks () {
       return this.allTasks.filter(task => task.status === 'new')

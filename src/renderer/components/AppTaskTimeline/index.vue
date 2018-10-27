@@ -20,22 +20,22 @@
         <div class="cd-timeline-content">
           <h3 class="title">{{task.title}}
             <v-chip  outline :class="{
-                red: task.status === 'new',
-                'red--text':task.status === 'new',
+                blue: task.status === 'new',
+                'blue--text':task.status === 'new',
                 orange: task.status === 'in_progress',
                 'orange--text':task.status === 'in_progress',
                 green: task.status === 'done',
                 'green--text':task.status === 'done'
               }">
-              {{task.status}}
+              {{ statusName(task.status) }}
             </v-chip>
           </h3>
           <pre>{{task.description}}</pre>
 
-          <v-btn small fab class="cd-read-more  white--text" @click.native="taskToDelete = task; showDialog = true;">
+          <v-btn small flat icon class="cd-read-more  white--text" @click.native="taskToDelete = task; showDialog = true;">
             <v-icon class="red--text">delete</v-icon>
           </v-btn>
-          <v-btn small fab class="cd-read-more white--text" @click.native="editTask(task)">
+          <v-btn small flat icon class="cd-read-more white--text" @click.native="editTask(task)">
             <v-icon class="green--text">edit</v-icon>
           </v-btn>
          
@@ -59,6 +59,15 @@
     data () {
       return {
         showDialog: false
+      }
+    },
+    methods: {
+      statusName (name) {
+        return ({
+          in_progress: 'In Progress',
+          new: 'New',
+          done: 'Done'
+        })[name]
       }
     },
     mixins: [taskMixin],

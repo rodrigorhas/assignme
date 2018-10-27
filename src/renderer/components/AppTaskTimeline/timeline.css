@@ -100,13 +100,13 @@ Main components
   margin-top: -12px;
 }
 .cd-timeline-img.task.new {
-  background: red;
+  background: #2196f3;
 }
 .cd-timeline-img.task.in_progress {
-  background: orange;
+  background: #ffc107;
 }
 .cd-timeline-img.task.done {
-  background: green;
+  background: #4caf50;
 }
 .cd-timeline-img.cd-movie {
   background: #c03b44;
@@ -122,7 +122,9 @@ Main components
     margin-left: -30px;
     /* Force Hardware Acceleration in WebKit */
     -webkit-transform: translateZ(0);
+    transform: translateZ(0);
     -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
   .cssanimations .cd-timeline-img.is-hidden {
     visibility: hidden;
@@ -163,7 +165,6 @@ Main components
 }
 .cd-timeline-content .cd-read-more {
   float: right;
-  padding: .8em 1em;
 }
 .no-touch .cd-timeline-content .cd-read-more:hover {
   background-color: #bac4cb;  

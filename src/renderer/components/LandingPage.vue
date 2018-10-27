@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <v-toolbar light dense class="mb-2 elevation-1">
+    <v-toolbar light dense class="mb-2">
       <v-toolbar-title class="pink--text">{{ taskStatus | formatStatus }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn-toggle class="white" v-bind:items="displayOptions" mandatory v-model="display"> </v-btn-toggle>
@@ -84,11 +84,11 @@
     },
 
     mixins: [taskMixin],
-    mounted () { this.$store.dispatch('getTasks') },
+    mounted () { this.$store.dispatch('tasks/getTasks') },
 
     computed: {
       taskStatus () {
-        return this.$store.getters.taskStatus
+        return this.$store.getters['tasks/taskStatus']
       },
       showTimelineComponent () {
         return this.display === 'timeline' && this.allTasks.length > 0
@@ -102,7 +102,7 @@
 
     methods: {
       showTasksByStatus (status) {
-        this.$store.commit('setTaskStatus', status)
+        this.$store.commit('tasks/setTaskStatus', status)
       }
     },
 
@@ -116,22 +116,3 @@
     }
   }
 </script>
-
-<style>
-  .new.task {
-    border-left-style:solid;
-    border-left-width:2px;
-    border-color:red;
-  }
-  .in_progress.task {
-    border-left-style:solid;
-    border-left-width:2px;
-    border-color:orange
-  }
-  .done.task {
-    border-left-style:solid;
-    border-left-width:2px;
-    border-color:green
-  }
-
-</style>
